@@ -7,6 +7,7 @@ const BasicForm = (props) => {
     touchChangeHandler: firstnameTouchHandler,
     IsvalidValue: IsValidFirstName,
     hasError: firstnameInputIsvalid,
+    reset: firstNameReset,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -15,6 +16,7 @@ const BasicForm = (props) => {
     touchChangeHandler: lastnameTouchHandler,
     IsvalidValue: IsValidLastName,
     hasError: lastnameInputIsvalid,
+    reset: lastNameReset,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -23,6 +25,7 @@ const BasicForm = (props) => {
     touchChangeHandler: emailTouchHandler,
     IsvalidValue: IsValidEmail,
     hasError: emailInputIsvalid,
+    reset: emailReset,
   } = useInput((value) => value.includes("@"));
 
   let formValid = false;
@@ -30,8 +33,16 @@ const BasicForm = (props) => {
   if (IsValidFirstName && IsValidLastName && IsValidEmail) {
     formValid = true;
   }
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log({ firstnameInput, lastnameInput, emailInput });
+    firstNameReset();
+    lastNameReset();
+    emailReset();
+  };
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <div className="control-group">
         <div
           className={`form-control ${firstnameInputIsvalid ? "invalid" : ""}`}

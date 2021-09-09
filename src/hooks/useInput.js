@@ -10,12 +10,18 @@ const useInput = (valueValidate) => {
   const IsvalidValue = valueValidate(value);
   const hasError = !IsvalidValue && isTouched;
 
+  const reset = () => {
+    setValue("");
+    setIsTouched(false);
+  };
+
   return {
     value,
     valueChangeHandler,
     touchChangeHandler,
     IsvalidValue,
     hasError,
+    reset,
   };
 };
 
